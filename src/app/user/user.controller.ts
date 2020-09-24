@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { LoginUserDto } from './dtos/login-user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -19,5 +20,16 @@ export class UserController {
   @Post()
   createUser(@Body() dto: CreateUserDto) {
     return this.userService.create(dto);
+  }
+
+  @Post('login')
+  async login(@Body() dto: LoginUserDto) {
+    const user = await this.userService.findOne(dto.email, dto.password);
+
+    if(!user) {
+      throw new UnauthorizedException();
+    }
+
+    return user;
   }
 }

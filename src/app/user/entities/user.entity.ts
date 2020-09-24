@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -6,8 +6,29 @@ export class User {
   id: number;
 
   @Column()
-  name: string;
+  role: string;
 
   @Column()
   ic: string;
+
+  @Column()
+  name: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column()
+  phone_no: string;
+
+  @Column()
+  notification_token: string;
+
+  @CreateDateColumn({ default: () => 'NOW()' })
+  created_at: Date
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }

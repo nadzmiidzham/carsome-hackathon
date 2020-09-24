@@ -15,7 +15,19 @@ export class UserService {
     return this.userRepo.findOne({ id: id });
   }
 
+  async findOne(email: string, password: string): Promise<User> {
+    return this.userRepo.findOne({ email, password });
+  }
+
   async create(dto: CreateUserDto): Promise<User> {
-    return this.userRepo.save(dto);
+    return this.userRepo.save({
+      ic: dto.ic,
+      email: dto.email,
+      name: dto.name,
+      password: dto.password,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      phone_no: dto.phoneNo,
+      role: dto.role,
+    });
   }
 }

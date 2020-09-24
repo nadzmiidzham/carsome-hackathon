@@ -17,5 +17,6 @@ export const userProvider = [
   imports: [DatabaseModule],
   controllers: [UserController],
   providers: [...userProvider, UserService],
+  exports: [UserService]
 })
 export class UserModule {}
